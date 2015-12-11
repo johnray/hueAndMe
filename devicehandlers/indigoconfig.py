@@ -1,7 +1,7 @@
 #Filehandler config file (shared with main config)
 CONFIG_FILE = "hueAndMe.cfg"
 INDIGO_REALM="Indigo Control Server"
-MAX_DEVICES=25
+MAX_DEVICES=27  # JMM 12/11/2015: 27 seems to be the magic limit for the Echo
 EXCLUSION_DELIMITER='"'
 
 import hashlib
@@ -64,7 +64,14 @@ def load_devices(devices, hue_devices):
 	INDIGO_BASE_URL = indigoconfig.get('indigo','base_url')
 	INDIGO_USER = indigoconfig.get('indigo','username')
 	INDIGO_PASS = indigoconfig.get('indigo','password')
-	EXCLUSIONS = indigoconfig.get('indigo','exclusions')
+	if 'inclusions' in indigoconfig.options('indigo'):
+		INCLUSIONS = indigoconfig.get('indigo','inclusions')
+	else:
+		INCLUSIONS = None
+	if 'exclusions' in indigoconfig.options('indigo'):
+		EXCLUSIONS = indigoconfig.get('indigo','exclusions')
+	else:
+		EXCLUSIONS = None
 	INDIGO_DEVICES_URL = INDIGO_BASE_URL+"/devices.json/"
 
 	# Read Indigo device list 
@@ -80,13 +87,19 @@ def load_devices(devices, hue_devices):
 	
 	# Parse Indigo device list into devices and hue devices
 	for device in indigo_devices:
-		device_count += 1
-		internal_count += 1
-		if internal_count <= MAX_DEVICES and (EXCLUSION_DELIMITER+device['name']+EXCLUSION_DELIMITER not in EXCLUSIONS):
+		quoted_device_name = "%s%s%s" % (EXCLUSION_DELIMITER, device['name'], EXCLUSION_DELIMITER)
+		if internal_count < MAX_DEVICES:
+			if INCLUSIONS and quoted_device_name not in INCLUSIONS:
+				continue
+			if EXCLUSIONS and quoted_device_name in EXCLUSIONS:
+				continue
+			print "Adding %s..." % device['name']
+			device_count += 1
+			internal_count += 1
 			devices[str(device_count)] = {'control':'url','on':INDIGO_BASE_URL+device['restURL']+"?isOn=1&_method=put",
 								'off':INDIGO_BASE_URL+device['restURL']+"?isOn=0&_method=put",
 								'dim':INDIGO_BASE_URL+device['restURL']+"?brightness={dim}&_method=put",
-								'id':generate_unique_id(device['name']),
+								'id':generate_unique_id(device['name'].encode('ascii', 'ignore')),
 								'name':device['name'].encode('ascii', 'ignore'),
 								'number':device_count,
 								'dimlevel':0,
@@ -97,6 +110,8 @@ def load_devices(devices, hue_devices):
 								"manufacturername":"Philips","uniqueid":generate_unique_id(device['name'].encode('ascii', 'ignore')),
 								"swversion": "66010820", "pointsymbol": { "1":"none", "2":"none", 
 								"3":"none", "4":"none", "5":"none", "6":"none", "7":"none", "8":"none" }}
+		else:
+			break
 								
 	local_devices = devices
 	print "Loaded "+str(len(local_devices))+" devices from Indigo."

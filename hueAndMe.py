@@ -1,3 +1,4 @@
+#!/usr/bin/python
 #config
 CONFIG_FILE = "hueAndMe.cfg"
 

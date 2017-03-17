@@ -1,0 +1,17 @@
+[hueAndMe]
+Description=Hue hub simulator and bridge for Alexa to Domoticz and Indigo
+After=syslog.target,domoticz.target
+
+[Service]
+Type=simple
+User=pi
+Group=pi
+WorkingDirectory=/home/pi/hueAndMe
+ExecStart=/home/pi/hueAndMe/hueAndMe.py
+StandardOutput=syslog
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target
+Alias=hueAndMe.service
+Alias=hueandme.service

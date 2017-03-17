@@ -5,16 +5,14 @@ The intention of this Python script is to provide an easily implemented Hue Hub 
 
 It is of possible interest to Indigo (https://www.indigodomo.com) users, as it can directly import your Indigo devices (assuming you have web services turned on) and make them available via hueAndMe and the Echo.
 
-It is also of interest for Domoticz users as it imports devices and makes them available to Alexa.
+It is also of interest for Domoticz (https://www.domoticz.com/) users as it imports devices and makes them available to Alexa.
 
 How to use
 -
 1. Download a copy of the repository.
 2. Edit the hueAndMe.cfg file to include devices, and/or point to your Indigo or Domoticz server. (This should be about as self-explanatory as it gets.)
 3. Run the script: <pre>
-bash-3.2% sudo python hueAndMe.py
-Loaded 0 devices from config file.
-Loaded 24 devices from Indigo.</pre>
+python hueAndMe.py</pre>
 4. Run device discovery on your Amazon Echo (or other device).
 5. Enjoy.
 
@@ -34,7 +32,7 @@ Running as a service Example for Raspberry Pi
 sudo chmod +x /home/pi/hueAndMe/hueAndMe.py</pre>
 3. Copy the systemd service file to the systemd service folder<pre>
 sudo cp /home/pi/hueAndMe/hueAndMe.service /lib/systemd/system</pre>
-4. Enable start of boot <pre>
+4. Enable start on boot <pre>
 sudo systemctl enable hueAndMe.service</pre>
 5. Start the service <pre>
 sudo systemctl start hueAndMe.service</pre>

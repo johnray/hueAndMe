@@ -45,7 +45,7 @@ def load_devices(devices, hue_devices):
 	device_count = len(devices)-1
 	
 	for section in sections:
-		if section.lower() != "general" and section.lower() != "indigo" and section[0] != DISABLE_CHARACTER:
+		if section.lower() != "general" and section.lower() != "indigo" and section.lower() != "domoticz" and section[0] != DISABLE_CHARACTER:
 			device_count += 1
 			devices[str(device_count)] = {'control':config.get(section,"control"),'on':config.get(section,"on"),
 									'off':config.get(section,"off"),

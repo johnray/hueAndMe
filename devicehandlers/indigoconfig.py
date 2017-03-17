@@ -89,9 +89,15 @@ def load_devices(devices, hue_devices):
 	for device in indigo_devices:
 		quoted_device_name = "%s%s%s" % (EXCLUSION_DELIMITER, device['name'], EXCLUSION_DELIMITER)
 		if internal_count < MAX_DEVICES:
-			if INCLUSIONS and quoted_device_name not in INCLUSIONS:
+			if (
+				(EXCLUSIONS and quoted_device_name in EXCLUSIONS) or
+				(EXCLUSION_KEYWORDS and any(x in device['Name'] for x in EXCLUSION_KEYWORDS))
+			):
 				continue
-			if EXCLUSIONS and quoted_device_name in EXCLUSIONS:
+			if (
+				(INCLUSIONS and quoted_device_name not in INCLUSIONS) and 
+				(INCLUSION_KEYWORDS and not any(x in device['Name'] for x in INCLUSION_KEYWORDS))
+			):
 				continue
 			print "Adding %s..." % device['name']
 			device_count += 1

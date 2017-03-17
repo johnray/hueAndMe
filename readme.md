@@ -5,11 +5,13 @@ The intention of this Python script is to provide an easily implemented Hue Hub 
 
 It is of possible interest to Indigo (https://www.indigodomo.com) users, as it can directly import your Indigo devices (assuming you have web services turned on) and make them available via hueAndMe and the Echo.
 
+It is also of interest for Domoticz users as it imports devices and makes them available to Alexa.
+
 How to use
 -
 1. Download a copy of the repository.
-2. Edit the hueAndMe.cfg file to include devices, and/or point to your Indigo server. (This should be about as self-explanatory as it gets.)
-3. Run the script (sudo since I’m binding to port 80): <pre>
+2. Edit the hueAndMe.cfg file to include devices, and/or point to your Indigo or Domoticz server. (This should be about as self-explanatory as it gets.)
+3. Run the script: <pre>
 bash-3.2% sudo python hueAndMe.py
 Loaded 0 devices from config file.
 Loaded 24 devices from Indigo.

@@ -28,6 +28,20 @@ Some notes of interest
 4. If you want to support something complex on your Indigo server, create a virtual on/off device.  Yes, I could update this to look at the groups and whatnot, but I didn’t really see a point when virtual devices work fine and we can’t do much besides on and off with the Echo anyway.
 5. No real error handling currently. Why? Because I’ve got other things to do, but this is likely useful to 1 or 2 people in its current state. It does exactly what I originally wanted it to do, so there :)  If I have time, I’ll try to make it prettier.
 
+Running as a service Example for Raspberry Pi
+-
+1. Place the hueAndMe folder in /home/pi
+2. Make sure hueAndMe.py is executable <pre>
+sudo chmod +x /home/pi/hueAndMe/hueAndMe.py
+</pre>
+3. Copy the systemd service file to the systemd service folder<pre>
+sudo cp /home/pi/hueAndMe/hueAndMe.service /lib/systemd/system
+</pre>
+4. Enable start of boot <pre>
+sudo systemctl enable hueAndMe.service
+5. Start the service <pre>
+sudo systemctl start hueAndMe.service
+
 Support
 -
 I created a Nest plugin years ago for Indigo. It required far too much support. I will try to fix bugs, but no promises. Contact me if you need assistance and I’ll do what I can.

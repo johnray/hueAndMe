@@ -111,14 +111,24 @@ def load_devices(devices, hue_devices):
 			print "Adding %s..." % device['Name']
 			device_count += 1
 			internal_count += 1
-			devices[str(device_count)] = {'control':'url','on':DOMOTICZ_BASE_URL+"/json.htm?type=command&param=switchlight&idx="+device['idx']+"&switchcmd=On",
-								'off':DOMOTICZ_BASE_URL+"/json.htm?type=command&param=switchlight&idx="+device['idx']+"&switchcmd=Off",
-								'dim':DOMOTICZ_BASE_URL+"/json.htm?type=command&param=switchlight&idx="+device['idx']+"&switchcmd=Set%20Level&level={dim}",
-								'id':generate_unique_id(device['Name'].encode('ascii', 'ignore')),
-								'name':device['Name'].encode('ascii', 'ignore'),
-								'number':device_count,
-								'dimlevel':0,
-								'defined':my_name}
+			if (device['SubType'] == "SetPoint"):
+				devices[str(device_count)] = {'control':'url','on':DOMOTICZ_BASE_URL+"/json.htm?type=devices&rid="+device['idx'],
+									'off':DOMOTICZ_BASE_URL+"/json.htm?type=devices&rid="+device['idx']",
+									'dim':DOMOTICZ_BASE_URL+"/json.htm?type=command&param=udevice&idx="+device['idx']+"&nvalue=0&svalue={dim}",
+									'id':generate_unique_id(device['Name'].encode('ascii', 'ignore')),
+									'name':device['Name'].encode('ascii', 'ignore'),
+									'number':device_count,
+									'dimlevel':0,
+									'defined':my_name}
+			else:
+				devices[str(device_count)] = {'control':'url','on':DOMOTICZ_BASE_URL+"/json.htm?type=command&param=switchlight&idx="+device['idx']+"&switchcmd=On",
+									'off':DOMOTICZ_BASE_URL+"/json.htm?type=command&param=switchlight&idx="+device['idx']+"&switchcmd=Off",
+									'dim':DOMOTICZ_BASE_URL+"/json.htm?type=command&param=switchlight&idx="+device['idx']+"&switchcmd=Set%20Level&level={dim}",
+									'id':generate_unique_id(device['Name'].encode('ascii', 'ignore')),
+									'name':device['Name'].encode('ascii', 'ignore'),
+									'number':device_count,
+									'dimlevel':0,
+									'defined':my_name}
 			hue_devices[str(device_count)] = {"state":{"on": False, "bri": 255, "hue": 14924, "sat": 143,"effect":"none",
 								"xy":[0.4589,0.4103],"ct":365,"alert":"none","colormode":"hs",
 								"reachable":True}, "type":"Extended color light","name":device['Name'].encode('ascii', 'ignore'),"modelid":"LCT001",

@@ -39,8 +39,10 @@ sudo cp /home/pi/hueAndMe/hueAndMe.service /lib/systemd/system
 </pre>
 4. Enable start of boot <pre>
 sudo systemctl enable hueAndMe.service
+</pre>
 5. Start the service <pre>
 sudo systemctl start hueAndMe.service
+</pre>
 
 Support
 -

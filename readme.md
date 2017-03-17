@@ -14,8 +14,7 @@ How to use
 3. Run the script: <pre>
 bash-3.2% sudo python hueAndMe.py
 Loaded 0 devices from config file.
-Loaded 24 devices from Indigo.
-</pre>
+Loaded 24 devices from Indigo.</pre>
 4. Run device discovery on your Amazon Echo (or other device).
 5. Enjoy.
 
@@ -32,17 +31,13 @@ Running as a service Example for Raspberry Pi
 -
 1. Place the hueAndMe folder in /home/pi
 2. Make sure hueAndMe.py is executable <pre>
-sudo chmod +x /home/pi/hueAndMe/hueAndMe.py
-</pre>
+sudo chmod +x /home/pi/hueAndMe/hueAndMe.py</pre>
 3. Copy the systemd service file to the systemd service folder<pre>
-sudo cp /home/pi/hueAndMe/hueAndMe.service /lib/systemd/system
-</pre>
+sudo cp /home/pi/hueAndMe/hueAndMe.service /lib/systemd/system</pre>
 4. Enable start of boot <pre>
-sudo systemctl enable hueAndMe.service
-</pre>
+sudo systemctl enable hueAndMe.service</pre>
 5. Start the service <pre>
-sudo systemctl start hueAndMe.service
-</pre>
+sudo systemctl start hueAndMe.service</pre>
 
 Support
 -

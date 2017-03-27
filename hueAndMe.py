@@ -1,3 +1,4 @@
+#!/usr/bin/python
 #config
 CONFIG_FILE = "hueAndMe.cfg"
 
@@ -33,6 +34,9 @@ if mainconfig.getboolean('general','load_file'):
 
 if mainconfig.getboolean('general','load_indigo'):
 	from devicehandlers import indigoconfig
+
+if mainconfig.getboolean('general','load_domoticz'):
+	from devicehandlers import domoticz
 
 class Broadcaster(Thread):
 	interrupted = False
@@ -219,6 +223,8 @@ if __name__ == '__main__':
 	if mainconfig.getboolean('general','load_indigo'):
 		indigoconfig.load_devices(devices,hue_devices)
 	
+	if mainconfig.getboolean('general','load_domoticz'):
+		domoticz.load_devices(devices,hue_devices)
 		
 	responder = Responder()
 	broadcaster = Broadcaster()

@@ -5,15 +5,14 @@ The intention of this Python script is to provide an easily implemented Hue Hub 
 
 It is of possible interest to Indigo (https://www.indigodomo.com) users, as it can directly import your Indigo devices (assuming you have web services turned on) and make them available via hueAndMe and the Echo.
 
+It is also of interest for Domoticz (https://www.domoticz.com/) users as it imports devices and makes them available to Alexa.
+
 How to use
 -
 1. Download a copy of the repository.
-2. Edit the hueAndMe.cfg file to include devices, and/or point to your Indigo server. (This should be about as self-explanatory as it gets.)
-3. Run the script (sudo since I’m binding to port 80): <pre>
-bash-3.2% sudo python hueAndMe.py
-Loaded 0 devices from config file.
-Loaded 24 devices from Indigo.
-</pre>
+2. Edit the hueAndMe.cfg file to include devices, and/or point to your Indigo or Domoticz server. (This should be about as self-explanatory as it gets.)
+3. Run the script: <pre>
+python hueAndMe.py</pre>
 4. Run device discovery on your Amazon Echo (or other device).
 5. Enjoy.
 
@@ -25,6 +24,18 @@ Some notes of interest
 3. If you JUST configure the Indigo URL, username and password, then run this app without changing anything else in the config, it will probably work. Don’t overthink it.
 4. If you want to support something complex on your Indigo server, create a virtual on/off device.  Yes, I could update this to look at the groups and whatnot, but I didn’t really see a point when virtual devices work fine and we can’t do much besides on and off with the Echo anyway.
 5. No real error handling currently. Why? Because I’ve got other things to do, but this is likely useful to 1 or 2 people in its current state. It does exactly what I originally wanted it to do, so there :)  If I have time, I’ll try to make it prettier.
+
+Running as a service Example for Raspberry Pi
+-
+1. Place the hueAndMe folder in /home/pi
+2. Make sure hueAndMe.py is executable <pre>
+sudo chmod +x /home/pi/hueAndMe/hueAndMe.py</pre>
+3. Copy the systemd service file to the systemd service folder<pre>
+sudo cp /home/pi/hueAndMe/hueAndMe.service /lib/systemd/system</pre>
+4. Enable start on boot <pre>
+sudo systemctl enable hueAndMe.service</pre>
+5. Start the service <pre>
+sudo systemctl start hueAndMe.service</pre>
 
 Support
 -
